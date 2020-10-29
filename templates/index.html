@@ -20,13 +20,18 @@
     <tr>
         <th>Название</th>
         <th>Цена</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
     </tr>
     {% for product in products %}
     <tr>
         <td>{{ product.name }}</td>
         <td>{{ product.cost }}</td>
+        <td><button onclick="window.location.href = 'edit-product?id={{ product.id }}'">изменить</button></td>
+        <td><button onclick="window.location.href = 'delete-product?id={{ product.id }}'">удалить</button></td>
     </tr>
     {% endfor %}
 </table>
+<button onclick="window.location.href = 'edit-product'">добавить</button>
 </body>
 </html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить</title>
+</head>
+<body>
+<form method = "post" action="save-product">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Сохранить">
+</form>
+<button onclick="window.location.href = '/'">назад</button>
+</body>
+</html>

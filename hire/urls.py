@@ -21,4 +21,6 @@ from application import views
 
 urlpatterns = [
     path('', views.index),
+    path('edit-product', views.edit_product),
+    path('save-product', views.save_product),
 ]
