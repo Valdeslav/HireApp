@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список товаров проката</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px 30px 5px 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Список товаров проката</h1>
+<table>
+    <tr>
+        <th>Название</th>
+        <th>Цена</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.cost }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
