@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список товаров проката</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px 30px 5px 10px;
+        }
+    </style>
+
+    <script language="JavaScript">
+        function ask() {
+            return confirm("Вы действительно хотите удалить");
+        }
+    </script>
+</head>
+<body>
+
+{% if is_delete %}
+<h1>Выберите товары для удаления</h1>
+{% else %}
+<h1>Список товаров проката</h1>
+{% endif %}
+
+{% if is_delete %}
+    <form action="delete-product" method="post" onsubmit="return ask();">
+    {% csrf_token %}
+{% endif %}
+
+<table>
+    <tr>
+        {% if is_delete %}
+        <th>&nbsp;</th>
+        {% endif %}
+        <th>Название</th>
+        <th>Цена</th>
+        {% if not is_delete %}
+        <th>&nbsp;</th>
+        {% endif %}
+    </tr>
+
+    {% for product in products %}
+    <tr>
+        {% if is_delete %}
+        <td><input type="checkbox" name="id" value="{{product.id}}"></td>
+        {% endif %}
+        <td>{{ product.name }}</td>
+        <td>{{ product.cost }}</td>
+        {% if not is_delete %}
+        <td><button onclick="window.location.href = 'edit-product?id={{ product.id }}'">изменить</button></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+
+</table>
+{% if is_delete %}
+<button type="submit">удалить</button>
+</form>
+{% endif %}
+{% if not is_delete %}
+<button onclick="window.location.href = 'edit-product'">добавить</button>
+<td><button onclick="window.location.href = '/?delete={{ True }}'">удалить</button></td>
+{% endif %}
+
+</body>
+</html>

@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
-from .models import Product
+from application.models import Product
 
-from .forms import UpdateProdForm, CreateProdForm
+from application.forms import UpdateProdForm, CreateProdForm
 
 
 def index(request):
     products = Product.objects.all()
-    return render(request, "index.html", {"products": products})
+    # if button "удалить" pressed
+    is_delete = request.GET.get("delete")
+    if is_delete:
+        return render(request, "product/index.html", {"products": products, "is_delete": True})
+    return render(request, "product/index.html", {"products": products})
 
 
 def edit_product(request):
@@ -19,7 +23,7 @@ def edit_product(request):
         product_form = UpdateProdForm(initial=def_val)
     else:
         product_form = CreateProdForm()
-    return render(request, 'edit-product.html', {"form": product_form})
+    return render(request, 'product/edit-product.html', {"form": product_form})
 
 
 def save_product(request):
@@ -36,6 +40,15 @@ def save_product(request):
             product.name = request.POST.get("name")
             product.cost = request.POST.get("cost")
             product.save()
+
+    return HttpResponseRedirect("/")
+
+
+def delete_product(request):
+    if request.method == "POST":
+        ids = request.POST.getlist("id")
+        for id in ids:
+            Product.objects.filter(id=id).delete()
 
     return HttpResponseRedirect("/")
 

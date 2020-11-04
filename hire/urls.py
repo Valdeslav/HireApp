@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import re_path
 
-from application import views
+from application.views import product_views
 
 urlpatterns = [
-    path('', views.index),
-    path('edit-product', views.edit_product),
-    path('save-product', views.save_product),
+    path('', product_views.index),
+    path('edit-product', product_views.edit_product),
+    path('save-product', product_views.save_product),
+    path('delete-product', product_views.delete_product),
 ]
