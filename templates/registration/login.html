@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<h2>Вход</h2>
+    <div>
+    {% if message %}
+        <p class="authErr">{{ message }}</p>
+    {% endif %}
+    <form action="." method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Войти</button>
+    </form>
+    </div>
+{% endblock %}
