@@ -27,5 +27,6 @@ urlpatterns = [
     path('delete-product', views.delete_product),
     path('login/', account_views.user_login, name='login'),
     path('logout/', account_views.user_logout, name='logout'),
+    path('register/', account_views.register, name='register'),
     path('admin/', admin.site.urls),
 ]

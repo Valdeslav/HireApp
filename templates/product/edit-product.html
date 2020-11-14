@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Изменить</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Изменение товара{% endblock %}
+
+{% block content %}
+
 <form method = "post" action="save-product">
     {% csrf_token %}
     <table>
@@ -13,5 +13,4 @@
     <input type="submit" value="Сохранить">
 </form>
 <button onclick="window.location.href = '/'">назад</button>
-</body>
-</html>
+{% endblock %}

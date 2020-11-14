@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Список товаров проката</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-        th, td {
-            border: 1px solid black;
-            padding: 5px 30px 5px 10px;
-        }
-    </style>
+{% block title %}Список товаров проката{% endblock %}
 
-    <script language="JavaScript">
+{% block java_script %}
         function ask() {
             return confirm("Вы действительно хотите удалить");
         }
-    </script>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
+
 {% if is_delete %}
 <h1>Выберите товары для удаления</h1>
 {% else %}
@@ -66,6 +56,4 @@
 <button onclick="window.location.href = 'edit-product'">добавить</button>
 <td><button onclick="window.location.href = '/?delete={{ True }}'">удалить</button></td>
 {% endif %}
-
-</body>
-</html>
+{% endblock %}

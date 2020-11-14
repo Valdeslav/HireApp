@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
+from urllib.parse import urlencode
 
 
 def user_login(request):
@@ -25,8 +26,9 @@ def user_login(request):
                                 'message': 'Не удалось войти. Убедитесь что ввели верные Логин и Пароль'
                               })
     else:
+        message = request.GET.get("message")
         form = LoginForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form, 'message': message})
 
 
 def user_logout(request):
@@ -36,4 +38,17 @@ def user_logout(request):
     return HttpResponseRedirect("/")
 
 
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            url_param = urlencode({'message': 'Вы успешно зарегистрировались.\nТеперь вы можете войти в свой аккаунт'})
+            http_response = HttpResponseRedirect(f'/login?{url_param}')
 
+            return http_response
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'registration/register.html', {'user_form': user_form})
