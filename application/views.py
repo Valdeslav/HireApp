@@ -12,7 +12,7 @@ def index(request):
     is_delete = request.GET.get("delete")
     if is_delete:
         return render(request, "product/index.html", {"products": products, "is_delete": True})
-    return render(request, "product/index.html", {"products": products})
+    return render(request, "catalog/catalog.html", {"products": products})
 
 
 def edit_product(request):

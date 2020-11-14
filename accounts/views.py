@@ -26,9 +26,9 @@ def user_login(request):
                                 'message': 'Не удалось войти. Убедитесь что ввели верные Логин и Пароль'
                               })
     else:
-        message = request.GET.get("message")
+        message = request.GET.get("scmsg")
         form = LoginForm()
-    return render(request, 'registration/login.html', {'form': form, 'message': message})
+    return render(request, 'registration/login.html', {'form': form, 'scmsg': message})
 
 
 def user_logout(request):
@@ -45,7 +45,7 @@ def register(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
-            url_param = urlencode({'message': 'Вы успешно зарегистрировались.\nТеперь вы можете войти в свой аккаунт'})
+            url_param = urlencode({'scmsg': 'Вы успешно зарегистрировались.\nТеперь вы можете войти в свой аккаунт'})
             http_response = HttpResponseRedirect(f'/login?{url_param}')
 
             return http_response
