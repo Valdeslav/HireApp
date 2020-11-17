@@ -15,13 +15,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
 from application import views
 from accounts import views as account_views
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='product_list'),
     path('edit-product', views.edit_product),
     path('save-product', views.save_product),
     path('delete-product', views.delete_product),
@@ -29,4 +29,5 @@ urlpatterns = [
     path('logout/', account_views.user_logout, name='logout'),
     path('register/', account_views.register, name='register'),
     path('admin/', admin.site.urls),
+    re_path(r'^(?P<category_slug>[-\w]+)/$', views.index, name='product_list_by_category'),
 ]

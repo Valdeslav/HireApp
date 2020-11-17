@@ -2,21 +2,63 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %}Список товаров проката{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+    Список товаров проката
+    {% endif %}
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/catalog.css"%}">
+{% endblock %}
+
+
+{% block navitems %}
+        <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Категории
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarCategories">
+                <a class="dropdown-item {% if not category %}active{% endif %}" href="{% url "product_list" %}">Все</a>
+                {% for c in categories %}
+                <a class="dropdown-item {% if category.slug == c.slug %}active{% endif %}" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                   {% endfor %}
+            </div>
+        </li>
+    {% endblock %}
+
 
 {% block content %}
 
-<h1>Список товаров проката</h1>
-
     <div class="container" >
-    <div class="row row-cols-1 row-cols-md-3 ">
+    <h1>Список товаров проката</h1>
+    <div class="card-deck mb-3">
     {% for product in products %}
         <div class="col mb-4">
     <div class="card mb-4 shadow-sm" style="width: 18rem;">
-        <img src="{% static "img/alt.jpg" %}" class="card-img-top" alt="фото отсутствует">
-        <div class="card-body">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab{{ product.id }}1">Товар</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab{{ product.id }}2">Информация</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body tab-content">
+            <div class="tab-pane fade show active" id="tab{{ product.id }}1">
+                <img height="150" src="{{ product.image }}" class="card-img-top" alt="фото отсутствует">
             <h5 class="card-title pricing-card-title">{{ product.name }}<small class="text-muted"> {{ product.cost }} р.</small></h5>
             <a href="#" class="btn btn-primary">Подробнее</a>
+            </div>
+            <div class="tab-pane fade show " id="tab{{ product.id }}2">
+                <p class="card-text text-white bg-dark">цена: <strong>{{ product.cost }} р.</strong></p>
+                <p class="card-text">{{ product.description }}</p>
+                <a href="#" class="btn btn-primary">Подробнее</a>
+            </div>
         </div>
     </div>
         </div>
