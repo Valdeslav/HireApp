@@ -52,12 +52,18 @@
             <div class="tab-pane fade show active" id="tab{{ product.id }}1">
                 <img height="150" src="{{ product.image }}" class="card-img-top" alt="фото отсутствует">
             <h5 class="card-title pricing-card-title">{{ product.name }}<small class="text-muted"> {{ product.cost }} р.</small></h5>
-            <a href="#" class="btn btn-primary">Подробнее</a>
+            <form action="{% url "cart_add" product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+            </form>
             </div>
             <div class="tab-pane fade show " id="tab{{ product.id }}2">
                 <p class="card-text text-white bg-dark">цена: <strong>{{ product.cost }} р.</strong></p>
                 <p class="card-text">{{ product.description }}</p>
-                <a href="#" class="btn btn-primary">Подробнее</a>
+                <form action="{% url "cart_add" product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                </form>
             </div>
         </div>
     </div>

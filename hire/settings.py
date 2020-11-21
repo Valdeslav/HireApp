@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'application',
     'accounts',
+    'cart',
+    'orders',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -129,3 +131,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+CART_SESSION_ID = 'cart'

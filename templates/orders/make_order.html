@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+    Оформление заказа
+{% endblock %}
+
+{% block style %}
+
+    img {
+        object-fit: contain;
+    }
+    
+{% endblock %}
+
+
+{% block content %}
+    <div class="container" >
+        <h1>Форма заказа</h1>
+        <form action="/make-order" method="post">
+        <div class="form-group">
+        <label for="date1">Выберите дату, когда хотите взять товары в прокат</label>
+        <input type="date" class="form-control" name="taking_date" id="date1">
+        <label for="date2">Выберите даты, до которой берете товары в прокат</label>
+        <input type="date" class="form-control" name="return_date" id="date2">
+        {% if products %}
+        <table class="table  table-hover table-bordered">
+            <thead class="bg-light">
+                <tr>
+                    <th scope="col">Выбор</th>
+                    <th scope="col">Изображение</th>
+                    <th scope="col">Продукт</th>
+                    <th scope="col">Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                    <tr>
+                        <td><input type="checkbox" class="form-check-input" name="checked_product" value="{{ product.id }}"></td>
+                        <td>
+                            <img height="150" src="{{ product.image }}">
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.cost }}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h3>В вашей корзине нет товаров</h3>
+        {% endif %}
+        <input type="submit" class="btn btn-primary" value="Сделать заказ">
+        </div>
+        </form>
+    </div>
+{% endblock %}
