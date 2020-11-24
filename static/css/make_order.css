@@ -1,0 +1,98 @@
+img {
+        object-fit: contain;
+    }
+
+h4.col {
+    margin-top: 4px;
+}
+
+
+
+input.btn {
+    margin-top: 8px;
+}
+
+label {
+    font-size: large;
+}
+
+table.table {
+    margin-top: 1cm;
+}
+
+div.order-cost {
+    display: inline-block;
+    color: blue;
+}
+
+div.number-input {
+	display: inline-block;
+	align-content: center;
+	width :80%;
+}
+
+input[type="number"] {
+
+	text-align: center;
+	width: 30%;
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+}
+.number input[type="number"]::-webkit-outer-spin-button,
+.number input[type="number"]::-webkit-inner-spin-button {
+	display: none;
+}
+
+button.number-plus {
+	display: inline-block;
+	background-color: #007bff;
+	border-color: #007bff;
+	color: white;
+	text-align: center;
+	width: 30px;
+}
+
+button.number-minus {
+	display: inline-block;
+	background-color: #007bff;
+	border-color: #007bff;
+	color: white;
+	text-align: center;
+	width: 30px;
+	margin-left: 30%;
+}
+
+p.stock {
+    margin-top: 10px;
+}
+
+
+@media (min-width: 400px) {
+    div.date-input {
+        margin-right: 45%;
+    }
+}
+
+@media (min-width: 600px) {
+    div.date-input {
+        margin-right: 55%;
+    }
+}
+
+@media (min-width: 700px) {
+    div.date-input {
+        margin-right: 65%;
+    }
+}
+
+@media (min-width: 800px) {
+    div.date-input {
+        margin-right: 75%;
+    }
+}
+
+@media (min-width: 992px) {
+    div.date-input {
+        margin-right: 85%;
+    }
+}
