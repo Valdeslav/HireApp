@@ -36,7 +36,7 @@ def complite_order(request):
     taking_date = datetime.strptime(taking_date, '%Y-%m-%d')
     return_date = datetime.strptime(return_date, '%Y-%m-%d')
     cost = request.POST.get('inputCost')
-    hire = Hire(hirer=request.user.id, taking_date=taking_date, return_date=return_date, cost=cost)
+    hire = Hire(hirer=request.user.id, taking_date=taking_date, return_date=return_date, cost=cost, number=0)
     if 'order_paid' in request.POST:
         hire.paid = True
     elif 'order_save' in request.POST:
@@ -45,9 +45,45 @@ def complite_order(request):
 
     # saving Hire elements
     product_ids = request.POST.getlist("checked_product")
+    cart = CartDb.objects.filter(user_id=request.user.id)
+    hire_prod_number = 0
     for id in product_ids:
+        product = Product.objects.get(id=id)
+        number = request.POST.get("number"+str(id))
+        hire_element = HireElement(number=number, hire=hire, product=product)
+        hire_element.save()
+        # delete product from cart
+        cart.filter(product_id=id).delete()
+        hire_prod_number += int(number)
+
+    hire.number = hire_prod_number
+    hire.save()
+    return HttpResponseRedirect('/order-list')
         
 
+def order_list(request):
+    if not request.user.is_authenticated:
+        url_param = urlencode({'scmsg': 'Войдите чтобы посмотреть свои заказы'})
+        http_response = HttpResponseRedirect(f'/login?{url_param}')
+        return http_response
 
+    order_elements = {}
+    paid_orders = Hire.objects.filter(hirer=request.user.id, paid=True)
+    for hire in paid_orders:
+        products_images = []
+        hire_elements = HireElement.objects.filter(hire_id=hire.id)
+        for element in hire_elements:
+            products_images.append(Product.objects.get(id=element.product_id).image)
+        order_elements[hire.id] = products_images
 
+    saved_orders = Hire.objects.filter(hirer=request.user.id, paid=False)
+    for hire in saved_orders:
+        products_images = []
+        hire_elements = HireElement.objects.filter(hire_id=hire.id)
+        for element in hire_elements:
+            products_images.append(Product.objects.get(id=element.product_id).image)
+        order_elements[hire.id] = products_images
 
+    return render(request, "orders/order-list.html", {'paid_orders': paid_orders,
+                                                      'saved_orders': saved_orders,
+                                                      'order_elements': order_elements})

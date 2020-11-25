@@ -9,9 +9,12 @@ class Hire(models.Model):
     return_date = models.DateField()
     cost = models.DecimalField(max_digits=15, decimal_places=2)
     paid = models.BooleanField(default=False)
+    number = models.PositiveIntegerField()
 
     class Meta:
         ordering = ('return_date',)
+
+
 
 
 class HireElement(models.Model):

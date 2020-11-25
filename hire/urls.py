@@ -37,6 +37,7 @@ urlpatterns = [
 
     path('make-order/', orders_views.make_order, name='make_order'),
     path('complite-order/', orders_views.complite_order, name='complite_order'),
+    path('order-list/', orders_views.order_list, name="order_list"),
 
     re_path(r'^add/(?P<product_id>\d+)/$', cart_views.cart_add, name='cart_add'),
     re_path(r'^remove/(?P<product_id>\d+)/$', cart_views.cart_remove, name='cart_remove'),

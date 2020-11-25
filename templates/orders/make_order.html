@@ -47,7 +47,7 @@
 
                             <div class="number-input">
                             <button class="number-minus" type="button"  onclick="numberButtonClick({{ product.id }}, 1, {{ product.stock }}); this.nextElementSibling.stepDown(); this.nextElementSibling.onchange(); ">-</button>
-                            <input type="number" min="1" max="{{ product.stock }}" id="number{{ product.id }}" value="1" >
+                            <input type="number" min="1" max="{{ product.stock }}" name="number{{ product.id }}" id="number{{ product.id }}" value="1" >
                             <button class="number-plus" type="button" onclick=" numberButtonClick({{ product.id }}, 2, {{ product.stock }}); this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
                             </div>
                             <p class="stock">Доступно {{ product.stock }} единиц</p>
