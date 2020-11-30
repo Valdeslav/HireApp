@@ -3,3 +3,9 @@ h2 {
      margin-top: 1cm;
      margin-bottom: 1cm;
 }
+
+a.cart-icon {
+     position: absolute;
+     margin-left: 90%;
+     margin-top: 0.5cm;
+}

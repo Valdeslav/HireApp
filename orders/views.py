@@ -67,23 +67,7 @@ def order_list(request):
         http_response = HttpResponseRedirect(f'/login?{url_param}')
         return http_response
 
-    order_elements = {}
     paid_orders = Hire.objects.filter(hirer=request.user.id, paid=True)
-    for hire in paid_orders:
-        products_images = []
-        hire_elements = HireElement.objects.filter(hire_id=hire.id)
-        for element in hire_elements:
-            products_images.append(Product.objects.get(id=element.product_id).image)
-        order_elements[hire.id] = products_images
-
     saved_orders = Hire.objects.filter(hirer=request.user.id, paid=False)
-    for hire in saved_orders:
-        products_images = []
-        hire_elements = HireElement.objects.filter(hire_id=hire.id)
-        for element in hire_elements:
-            products_images.append(Product.objects.get(id=element.product_id).image)
-        order_elements[hire.id] = products_images
 
-    return render(request, "orders/order-list.html", {'paid_orders': paid_orders,
-                                                      'saved_orders': saved_orders,
-                                                      'order_elements': order_elements})
+    return render(request, "orders/order-list.html", {'paid_orders': paid_orders, 'saved_orders': saved_orders})

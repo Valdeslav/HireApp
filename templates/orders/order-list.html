@@ -11,6 +11,7 @@
 
 
 {% block content %}
+    <a href="/cart-detail" class="cart-icon"><img src="{% static  "img/cart.png"%}" title="Корзина" height="80" width="80"></a>
     <div class="container" >
         <h2>Оплаченые заказы</h2>
         <table class="table  table-hover">
@@ -25,6 +26,30 @@
             </thead>
             <tbody>
             {% for order in paid_orders %}
+                    <tr>
+                        <td>{{ order.cost }}</td>
+                        <td>{{ order.taking_date|date:"d.m.Y" }}</td>
+                        <td>{{ order.return_date|date:"d.m.Y" }}</td>
+                        <td>{{ order.number}}</td>
+                        <td><a class="btn btn-primary" href="">Подробнее</a></td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Неоплаченые заказы</h2>
+        <table class="table  table-hover">
+            <thead class="bg-light">
+                <tr>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Дата взятия в прокат</th>
+                    <th scope="col">Дата возврата</th>
+                    <th scope="col">Единиц товара</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for order in saved_orders %}
                     <tr>
                         <td>{{ order.cost }}</td>
                         <td>{{ order.taking_date|date:"d.m.Y" }}</td>
