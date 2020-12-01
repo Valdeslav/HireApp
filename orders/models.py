@@ -15,13 +15,11 @@ class Hire(models.Model):
         ordering = ('return_date',)
 
 
-
-
 class HireElement(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, db_index=True)
     number = models.IntegerField()
-    hire = models.ForeignKey(Hire, on_delete=models.PROTECT, related_name="elems")
+    hire = models.ForeignKey(Hire, on_delete=models.CASCADE, related_name="elems")
 
     def get_cost(self):
         return self.product.cost * self.number

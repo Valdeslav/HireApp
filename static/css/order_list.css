@@ -5,7 +5,7 @@ h2 {
 }
 
 a.cart-icon {
-     position: absolute;
+     position: fixed;
      margin-left: 90%;
      margin-top: 0.5cm;
 }

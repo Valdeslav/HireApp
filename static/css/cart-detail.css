@@ -1,0 +1,11 @@
+h1 {
+    display: inline-block;
+}
+
+ img {
+     object-fit: contain;
+    }
+
+ a.make-order {
+     margin-left: 50%;
+ }

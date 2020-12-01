@@ -1,0 +1,19 @@
+li.info {
+    font-size: 120%;
+}
+
+em.paid {
+    color: #008000;
+}
+
+em.saved {
+    color: #FF0000;
+}
+
+.btn {
+    display: inline-block;
+}
+
+form {
+    display: inline-block;
+}

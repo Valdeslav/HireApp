@@ -52,3 +52,13 @@ def register(request):
     else:
         user_form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'user_form': user_form})
+
+
+def change_user_information(request):
+    if request.method == 'GET':
+        user = request.user
+        user_form = UserRegistrationForm()
+        user_form.first_name.initial = user.first_name
+        user_form.last_name.initial = user.last_name
+        user_form.email.initial = user.email
+

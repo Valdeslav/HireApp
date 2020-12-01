@@ -1,19 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     Ваша корзина
 {% endblock %}
 
-{% block style %}
-
-    img {
-        object-fit: contain;
-    }
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/cart-detail.css"%}">
 {% endblock %}
-
 
 {% block content %}
     <div class="container" >
+        {% if cart %}
         <h1>Ваша корзина</h1>
+        <a class="btn btn-primary make-order" href="/make-order">Сделать заказ</a>
         <table class="table  table-hover table-bordered">
             <thead class="bg-light">
                 <tr>
@@ -36,5 +35,9 @@
             {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <h1>Ваша корзина пуста</h1><br>
+            <a class="btn btn-primary" href="/">Перейти к каталогу</a>
+        {% endif %}
     </div>
 {% endblock %}

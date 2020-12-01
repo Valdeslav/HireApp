@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% load dictionary_filters %}
+{% block title %}
+    Заказ
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/order-details.css"%}">
+{% endblock %}
+
+{% block content %}
+    <div class="container" >
+        <h1>Ваш заказ</h1>
+        <ul class="list-unstyled">
+            <li class="info">Дата взятия в прокат: <strong>{{ hire.taking_date|date:"d.m.Y" }}</strong></li>
+            <li class="info">Дата возврата: <strong>{{ hire.return_date|date:"d.m.Y" }}</strong></li>
+            <li class="info">Общая цена: <strong>{{ hire.cost }}</strong></li>
+            <li class="info">{% if hire.paid %}<em class="paid">Оплачено</em>{% else %}<em class="saved">Не оплачено</em>{% endif %}</li>
+        </ul>
+            <h3>Товары</h3>
+        <table class="table  table-hover table-bordered">
+            <thead class="bg-light">
+                <tr>
+                    <th scope="col">Изображение</th>
+                    <th scope="col">Продукт</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                    <tr>
+                        <td>
+                            <img height="150" src="{{ product.image }}">
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ number|dict_get_value:product.id }}</td>
+                        <td>{{ cost|dict_get_value:product.id }}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% if not hire.paid%}
+        <form action="/complite-order/" method="post" id="orderForm" onsubmit="insertCost();">
+        {% csrf_token %}
+        <input type="hidden" name="hire_id" value="{{ hire.id }}">
+        <button type="submit" name="order_paid_after_save" class="btn btn-primary">Оплатить заказ</button>
+        </form>
+        <a href="{% url "remove-saved-order" hire.id %}" class="btn btn-secondary">Отменить заказ</a>
+        </form>
+    {% endif %}
+    </div>
+{% endblock %}

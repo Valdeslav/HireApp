@@ -42,7 +42,9 @@
             <tbody>
             {% for product in products %}
                     <tr>
+
                         <td id="num-inp{{ product.id }}">
+                            {% if product.stock %}
                                 <input type="checkbox"  id="select{{ product.id }}" name="checked_product" oninput="checkedProduct({{ product.id }})" value="{{ product.id }}">
 
                             <div class="number-input">
@@ -51,6 +53,9 @@
                             <button class="number-plus" type="button" onclick=" numberButtonClick({{ product.id }}, 2, {{ product.stock }}); this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
                             </div>
                             <p class="stock">Доступно {{ product.stock }} единиц</p>
+                            {% else %}
+                            <p class="stock">Нет в наличии</p>
+                            {% endif %}
                         </td>
                         <td>
                             <img height="150" src="{{ product.image }}">
